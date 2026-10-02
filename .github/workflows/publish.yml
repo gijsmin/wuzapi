@@ -18,7 +18,12 @@ on:
   pull_request:
 
 env:
-  IMAGE: ghcr.io/${{ github.repository }}
+  # Deliberately not ghcr.io/gijsmin/wuzapi. That package already exists from a manual push in
+  # July 2026 and is linked to no repository, so an Actions GITHUB_TOKEN cannot write to it -
+  # the push fails with `denied: permission_denied: read_package`. Deleting the old package
+  # would free the name; until then this one is unambiguous anyway, since the image is the
+  # fork rather than upstream.
+  IMAGE: ghcr.io/gijsmin/wuzapi-fork
 
 jobs:
   # Runs on every push and PR, and gates the image below. The whole reason this fork exists is
